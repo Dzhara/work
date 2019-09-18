@@ -23,7 +23,8 @@ class CommentsContainer extends Component {
       loading: this.state.loading,
       showErrorModal: this.state.showErrorModal,
       handleCloseErrorModal: this.handleCloseErrorModal,
-      comments: this.state.comments,
+      filteredComments: this.state.comments,
+      allComments: this.data,
       filter: this.state.filter,
       handleFilterChange: this.handleFilterChange,
       refresh: this.refresh
@@ -65,6 +66,7 @@ class CommentsContainer extends Component {
   };
 
   refresh = () => {
+    this.setState(initialState);
     this.fetchData();
   };
 

@@ -13,6 +13,8 @@ import { DebounceInput } from "react-debounce-input";
 import TableView from "./TableView";
 import { Button } from "../../../common/components";
 
+const randomCommentsCount = 10;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -53,8 +55,14 @@ const useStyles = makeStyles(theme => ({
 export default function TabPanelView(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const { comments, handleFilterChange, filter, refresh } = props;
-  const randomComments = sampleSize(comments, 10);
+  const {
+    filteredComments,
+    allComments,
+    handleFilterChange,
+    filter,
+    refresh
+  } = props;
+  const randomComments = sampleSize(allComments, randomCommentsCount);
   function handleChange(event, newValue) {
     setValue(newValue);
   }
@@ -68,7 +76,7 @@ export default function TabPanelView(props) {
           aria-label='simple tabs example'
         >
           <Tab label='Search' {...a11yProps(0)} />
-          <Tab label='10 random comments' {...a11yProps(1)} />
+          <Tab label={`${randomCommentsCount} random comments`} {...a11yProps(1)} />
         </Tabs>
         <Button text={"REFRESH"} onClick={refresh} />
       </AppBar>
@@ -82,7 +90,7 @@ export default function TabPanelView(props) {
             debounceTimeout={300}
           />
         </label>
-        <TableView comments={comments} />
+        <TableView comments={filteredComments} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <TableView comments={randomComments} />

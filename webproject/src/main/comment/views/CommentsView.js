@@ -19,7 +19,8 @@ class CommentsView extends Component {
           }
         />
         <TabPanelView
-          comments={data.comments}
+          filteredComments={data.filteredComments}
+          allComments={data.allComments}
           filter={data.filter}
           handleFilterChange={data.handleFilterChange}
           refresh={data.refresh}
