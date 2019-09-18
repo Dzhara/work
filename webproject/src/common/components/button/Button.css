@@ -1,0 +1,7 @@
+.button {
+    background: mediumseagreen;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 6px;
+    cursor: pointer;
+}
