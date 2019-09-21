@@ -1,5 +1,6 @@
 //GLOBAL imports
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 //LOCAL imports
 import TabPanelView from "./TabPanelView";
 import ErrorModalView from "./ErrorModalView";
@@ -18,9 +19,8 @@ class CommentsView extends Component {
             "Something went wrong when fetching data. Please try again later (F5 or click Refresh)."
           }
         />
-        <TabPanelView
-          filteredComments={data.filteredComments}
-          allComments={data.allComments}
+        <TabPanelView         
+          source={data.source}
           filter={data.filter}
           handleFilterChange={data.handleFilterChange}
           refresh={data.refresh}
@@ -31,3 +31,7 @@ class CommentsView extends Component {
 }
 
 export default CommentsView;
+
+CommentsView.propTypes = {
+  data: PropTypes.object.isRequired
+};

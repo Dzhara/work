@@ -1,5 +1,3 @@
 import axios from "axios";
 
-export const getComments = () => {
-  return axios.get("https://jsonplaceholder.typicode.com/comments");
-};
+export const getComments = () => axios.get("https://jsonplaceholder.typicode.com/comments");

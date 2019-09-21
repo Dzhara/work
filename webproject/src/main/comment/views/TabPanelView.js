@@ -55,17 +55,26 @@ const useStyles = makeStyles(theme => ({
 export default function TabPanelView(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const {
-    filteredComments,
-    allComments,
-    handleFilterChange,
-    filter,
-    refresh
-  } = props;
-  const randomComments = sampleSize(allComments, randomCommentsCount);
+  const { source, handleFilterChange, filter, refresh } = props;
+ 
   function handleChange(event, newValue) {
     setValue(newValue);
   }
+
+  function filterComments(filter, source) {
+    const f = filter.toUpperCase();
+    const filtered = source.filter(
+      c =>
+        c.name.toUpperCase().includes(f) ||
+        c.email.toUpperCase().includes(f) ||
+        c.body.toUpperCase().includes(f)
+    );
+
+    return filtered;
+  }
+
+  const randomComments = sampleSize(source, randomCommentsCount);
+  const filteredComments = filterComments(filter, source);
 
   return (
     <div className={classes.root}>
@@ -76,7 +85,10 @@ export default function TabPanelView(props) {
           aria-label='simple tabs example'
         >
           <Tab label='Search' {...a11yProps(0)} />
-          <Tab label={`${randomCommentsCount} random comments`} {...a11yProps(1)} />
+          <Tab
+            label={`${randomCommentsCount} random comments`}
+            {...a11yProps(1)}
+          />
         </Tabs>
         <Button text={"REFRESH"} onClick={refresh} />
       </AppBar>

@@ -6,7 +6,7 @@ import CommentsView from "../views/CommentsView";
 import { getComments } from "../../../common/api/services";
 
 const initialState = {
-  comments: [],
+  source: [],
   loading: false,
   filter: "",
   showErrorModal: false
@@ -23,8 +23,7 @@ class CommentsContainer extends Component {
       loading: this.state.loading,
       showErrorModal: this.state.showErrorModal,
       handleCloseErrorModal: this.handleCloseErrorModal,
-      filteredComments: this.state.comments,
-      allComments: this.data,
+      source: this.state.source,
       filter: this.state.filter,
       handleFilterChange: this.handleFilterChange,
       refresh: this.refresh
@@ -35,19 +34,12 @@ class CommentsContainer extends Component {
     this.fetchData();
   }
 
-  componentWillUnmount() {
-    this.setState(initialState);
-  }
-
   fetchData() {
     this.handleLoader(true);
     getComments()
       .then(result => {
         const { data } = result;
-        this.data = data;
-        this.setState({
-          comments: data
-        });
+        this.setState({ source: data });
       })
       .catch(() => {
         this.setState({
@@ -60,9 +52,7 @@ class CommentsContainer extends Component {
   }
 
   handleLoader = loading => {
-    this.setState({
-      loading: loading
-    });
+    this.setState({ loading });
   };
 
   refresh = () => {
@@ -72,19 +62,7 @@ class CommentsContainer extends Component {
 
   handleFilterChange = event => {
     const filter = get(event, "target.value", "");
-    this.setState({ filter: filter });
-    this.filterComments(filter.toUpperCase());
-  };
-
-  filterComments = filter => {
-    const filtered = this.data.filter(
-      c =>
-        c.name.toUpperCase().includes(filter) ||
-        c.email.toUpperCase().includes(filter) ||
-        c.body.toUpperCase().includes(filter)
-    );
-
-    this.setState({ comments: filtered });
+    this.setState({ filter });
   };
 
   handleCloseErrorModal = () => {

@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import CommentsContainer from "./main/comment/containers/CommentsContainer";
 import "./App.css";
 
+//eslint-disable-next-line no-console
+console.warn = () => {};
 class App extends Component {
   render() {
     return (
