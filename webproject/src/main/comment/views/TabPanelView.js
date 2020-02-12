@@ -12,6 +12,7 @@ import { DebounceInput } from "react-debounce-input";
 //LOCAL imports
 import TableView from "./TableView";
 import { Button } from "../../../common/components";
+import { filterComments } from "../../../common/utils/helper";
 
 const randomCommentsCount = 10;
 
@@ -56,21 +57,9 @@ export default function TabPanelView(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { source, handleFilterChange, filter, refresh } = props;
- 
+
   function handleChange(event, newValue) {
     setValue(newValue);
-  }
-
-  function filterComments(filter, source) {
-    const f = filter.toUpperCase();
-    const filtered = source.filter(
-      c =>
-        c.name.toUpperCase().includes(f) ||
-        c.email.toUpperCase().includes(f) ||
-        c.body.toUpperCase().includes(f)
-    );
-
-    return filtered;
   }
 
   const randomComments = sampleSize(source, randomCommentsCount);
